@@ -89,8 +89,10 @@ def trajectory(flags, data):
     previous_pose = None
     for i, T_WC in enumerate(data['poses']):
         if previous_pose is not None:
-            points = o3d.utility.Vector3dVector([previous_pose[:3, 3], T_WC[:3, 3]])
-            lines = o3d.utility.Vector2iVector([[0, 1]])
+            points_array = np.vstack([previous_pose[:3, 3], T_WC[:3, 3]])
+            points = o3d.utility.Vector3dVector(points_array)
+            lines_array = np.array([[0, 1]], dtype=np.int32)
+            lines = o3d.utility.Vector2iVector(lines_array)
             line = o3d.geometry.LineSet(points=points, lines=lines)
             line_sets.append(line)
         previous_pose = T_WC
