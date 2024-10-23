@@ -2,8 +2,15 @@ Progress:
 Got rid of visualisation crashes (so can run now test_open3d.py) with:
 
 pip install https://github.com/isl-org/Open3D/releases/download/main-devel/open3d-0.18.0+fcc396e-cp311-cp311-macosx_10_15_universal2.whl
+This dev version fixes bug reported here: https://github.com/isl-org/Open3D/issues/6082 which is the same issue I was having
 
 Modify requirements to current version.
 
 Crashes at
 for i, (T_WC, rgb) in enumerate(zip(data['poses'], video)):
+
+Due to numpy error in scikit-video library.
+Maybe it is better to remove scikit-video and read video with a newer/better library
+scikit-video latest version is too old (2018)
+Current/temp fix: Replace wrong instances of numpy use (np.float, np.int by float, int) inside library
+TODO: If go this way, consider create a modified scikit-video package or contribute
