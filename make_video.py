@@ -19,7 +19,8 @@ def main():
     for i, image in enumerate(images):
         print(f"Reading image {image}", end='\r')
         path = os.path.join(flags.data, 'depth', image)
-        depth = np.load(path)
+        img = Image.open(path)
+        depth = np.array(img)
         max_depth = 7.5
         depth_m = depth / 1000.0
         depth_map = np.clip(1.0 - depth_m / max_depth, 0.0, 1.0)
